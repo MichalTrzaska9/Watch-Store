@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/application_style.css">
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <div class="card-header text-center">
+            <p class="fs-4">Lista zegarków</p>
+
+            <div class="col-md-12 p-3">
+                <form action="/admin/watches" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="x" style="border: 2px solid #808080;"
+                               placeholder="Wpisz model lub markę zegarka">
+                        <button class="btn btn-light text-dark ms-1 col-md-2" style="border: 2px solid #808080;">
+                            <i class="fa-solid fa-magnifying-glass me-1"></i>Szukaj
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex align-items-center justify-content-between" style="background-color: white; padding: 15px; border: none;">
+                    <div style="width: 5%; text-align: center;">ID</div>
+                    <div style="width: 10%; text-align: center;">Zdjęcie</div>
+                    <div style="width: 15%; text-align: center;">Model</div>
+                    <div style="width: 15%; text-align: center;">Marka</div>
+                    <div style="width: 10%; text-align: center;">Cena</div>
+                    <div style="width: 10%; text-align: center;">Status</div>
+                    <div style="width: 10%; text-align: center;">Dostępność</div>
+                    <div style="width: 25%; text-align: center;"></div>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between" th:each="w : ${watches}" style="background-color: white; padding: 15px; border: none;">
+                    <div style="width: 5%; text-align: center;">[[${w.id}]]</div>
+                    <div style="width: 10%; text-align: center;">
+                        <img th:src="@{'/img/watches_img/'+${w.image}}" class="img-fluid" alt="[[${w.model}]]" style="width: 60px; height: 60px; object-fit: contain;">
+                    </div>
+                    <div style="width: 15%; text-align: center;">[[${w.model}]]</div>
+                    <div style="width: 15%; text-align: center;">[[${w.brand}]]</div>
+                    <div style="width: 10%; text-align: center;">[[${w.price}]] zł</div>
+                    <div style="width: 10%; text-align: center;">[[${w.isActive}]]</div>
+                    <div style="width: 10%; text-align: center;">[[${w.stock}]]</div>
+                    <div style="width: 25%; text-align: center;">
+                        <a th:href="@{'/admin/editWatch/'+${w.id}}" class="btn btn-light btn-custom"
+                           style="padding: 0.25rem 1rem; font-size: 0.875rem; width: 100px;">
+                            <i class="fa-solid fa-pencil"></i> Edytuj
+                        </a>
+                        <a th:href="@{'/admin/deleteWatch/'+${w.id}}" class="btn btn-danger btn-sm"
+                           style="padding: 0.25rem 1rem; font-size: 0.875rem; width: 100px;">
+                            <i class="fa-solid fa-trash-can"></i> Usuń
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" style="margin-left: 45%;">
+                            <li class="page-item" th:classappend="${firstPage} ? 'disabled':''">
+                                <a class="page-link" th:href="@{'/admin/watches?pageNumber='+${pageNumber-1}}"
+                                   aria-label="Previous" style="color: black;">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:each="i:${#numbers.sequence(1,sumPages)}" class="page-item"
+                                th:classappend="${pageNumber+1==i}?'active':''">
+                                <a class="page-link pagination-btn" th:classappend="${pageNumber + 1 == i} ? ' selected' : ''"
+                                   th:href="@{'/admin/watches?pageNumber='+${i-1}}">
+                                    [[${i}]]
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${lastPage} ? 'disabled':''">
+                                <a class="page-link" th:href="@{'/admin/watches?pageNumber='+${pageNumber+1}}"
+                                   aria-label="Next" style="color: black;">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

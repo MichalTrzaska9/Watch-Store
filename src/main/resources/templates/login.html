@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<section>
+    <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+        <div class="row w-100" style="height: 90%; position: relative;">
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <img alt="" src="img/background/flamingo_logo.png"
+                     style="width: 60vw; height: auto; margin-top: -10vh;">
+            </div>
+            <div class="col-6 d-flex justify-content-center align-items-start" style="min-height: 100vh; overflow: auto;">
+                <div class="card" style="width: 40vw; max-width: 600px; margin-top: 15vh;">
+                    <div class="card-header">
+                        <p class="fs-4 text-center">Login</p>
+                        <div th:if="${param.error}" class="alert alert-danger text-center">
+                            <span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION}"></span>
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success text-center">
+                            Użytkownik wylogowany
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="/login" method="post">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input class="form-control" name="username" type="email">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Hasło</label>
+                                <input class="form-control" name="password" type="password">
+                            </div>
+                            <button type="submit" class="btn btn-dark text-white col-md-12">Zaloguj się</button>
+                        </form>
+                        <hr>
+
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="/register" class="text-decoration-none text-muted">Zarejestruj się</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

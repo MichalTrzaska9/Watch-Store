@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/application_style.css">
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <div class="card-header text-center">
+            <p class="fs-4" th:if="${userRole==1}">Administratorzy</p>
+            <p class="fs-4" th:if="${userRole==2}">Klienci</p>
+
+            <div class="col-md-12 p-3">
+                <form action="/admin/users" method="get">
+                    <input type="hidden" name="role" th:value="${userRole}" />
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="x" style="border: 2px solid #808080;"
+                               placeholder="Wpisz imię lub nazwisko">
+                        <button class="btn btn-light text-dark ms-1 col-md-2" style="border: 2px solid #808080;">
+                            <i class="fa-solid fa-magnifying-glass me-1"></i>Szukaj
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex align-items-center justify-content-between" style="background-color: white; padding: 15px; border: none;">
+                    <div style="width: 5%; text-align: center;">ID</div>
+                    <div style="width: 9%; text-align: center;">Imię</div>
+                    <div style="width: 10%; text-align: center;">Nazwisko</div>
+                    <div style="width: 14%; text-align: center;">Email</div>
+                    <div style="width: 10%; text-align: center;">Telefon</div>
+                    <div style="width: 10%; text-align: center;">Ulica</div>
+                    <div style="width: 10%; text-align: center;">Miasto</div>
+                    <div style="width: 10%; text-align: center;">Status</div>
+                    <div style="width: 22%; text-align: center;"></div>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between" th:each="u : ${users}" style="background-color: white; padding: 15px; border: none;">
+                    <div style="width: 5%; text-align: center;">[[${u.id}]]</div>
+                    <div style="width: 9%; text-align: center;">[[${u.name}]]</div>
+                    <div style="width: 10%; text-align: center;">[[${u.surname}]]</div>
+                    <div style="width: 14%; text-align: center;">[[${u.email}]]</div>
+                    <div style="width: 10%; text-align: center;">[[${u.phone}]]</div>
+                    <div style="width: 10%; text-align: center;">[[${u.street}]]</div>
+                    <div style="width: 10%; text-align: center;">[[${u.city}]]</div>
+                    <div style="width: 10%; text-align: center;">[[${u.isEnable}]]</div>
+                    <div style="width: 22%; text-align: center;">
+                        <a th:href="@{'/admin/updateStatus?status=true&id='+${u.id}}+'&role='+${userRole}"
+                           class="btn btn-light btn-custom" style="padding: 0.25rem 1rem; font-size: 0.875rem; width: 100px;">
+                            <i class="fa-solid"></i> Aktywny
+                        </a>
+                        <a th:href="@{'/admin/updateStatus?status=false&id='+${u.id}}+'&role='+${userRole}"
+                           class="btn btn-danger btn-sm" style="padding: 0.25rem 1rem; font-size: 0.875rem; width: 110px;">
+                            <i class="fa-solid"></i> Nieaktywny
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

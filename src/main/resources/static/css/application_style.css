@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+.card-sh{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+.cat-div{
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+
+.card-sh:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Przyciemnienie o 10% */
+    transform: scale(1.05); /* Delikatne powiększenie */
+}
+
+/* Kolor i styl zaznaczenia */
+.form-check-input:checked {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(128, 128, 128, 0.5) !important;
+}
+
+
+.pagination-btn {
+    color: black;
+    text-align: center;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+.pagination-btn.selected {
+    background-color: #d3d3d3;
+}
+.pagination .page-item.active .page-link {
+    background-color: #d3d3d3 !important;
+    color: black !important;
+    border-color: #ccc !important;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 40%;
+}
+
+.add-to-cart-btn {
+    color: black;
+    background-color: white;
+    border: 2px solid #808080;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-custom {
+    color: black;
+    background-color: white;
+    border: 2px solid #808080;
+    width: 60%;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #f0f0f0;
+}

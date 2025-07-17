@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj Markę</title>
+    <style>
+        .centered-card {
+            max-width: 50vh;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="container p-5 mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card centered-card mt-3">
+                    <div class="card-header text-center">
+                        <p class="fs-4">Edytuj Markę</p>
+                        <th:block th:if="${session != null and session.successMessage != null}">
+                            <p class="text-success fw-bold">[[${session.successMessage}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                        </th:block>
+                        <th:block th:if="${session != null and session.errorMessage != null}">
+                            <p class="text-danger fw-bold">[[${session.errorMessage}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                        </th:block>
+                    </div>
+                    <div class="card-body">
+                        <form action="/admin/updateBrand" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" th:value="${brand.id}">
+                            <div class="mb-3">
+                                <label>Marka</label>
+                                <input type="text" name="name" th:value="${brand.name}" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="isActive"
+                                           th:checked="${brand.isActive==true}" value="true" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Dostępna
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="isActive"
+                                           th:checked="${brand.isActive==false}" value="false"
+                                           id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Niedostępna
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Dodaj Zdjęcie</label>
+                                <input type="file" name="file" class="form-control">
+                            </div>
+                            <div class="text-center mb-3">
+                                <img th:src="@{'/img/brand_img/'+${brand.imageName}}"
+                                     class="img-thumbnail"
+                                     style="max-width: 100px; height: auto;"
+                                     alt="Brand Image">
+                            </div>
+                            <button class="btn btn-dark col-md-12 mt-2">Edytuj</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

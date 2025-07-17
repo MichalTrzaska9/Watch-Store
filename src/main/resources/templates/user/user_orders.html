@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<section>
+
+    <div class="container mt-5 p-5">
+        <div class="card-header text-center">
+            <p class="fs-4" style="font-weight: bold;">Lista zamówień</p>
+            <div class="card-body">
+                <div class="d-flex flex-column gap-3" >
+                    <div class="d-flex align-items-center justify-content-between" style="background-color: white; padding: 15px; border: none;margin-top: 15px;">
+                        <div style="width: 7%; text-align: center; font-weight: bold;">Kod zamówienia</div>
+                        <div style="width: 10%; text-align: center; font-weight: bold;">Data zamówienia</div>
+                        <div style="width: 10%; text-align: center; font-weight: bold;">Dane zamawiającego</div>
+                        <div style="width: 10%; text-align: center; font-weight: bold;">Produkt</div>
+                        <div style="width: 5%; text-align: center; font-weight: bold;">Ilość</div>
+                        <div style="width: 10%; text-align: center; font-weight: bold;">Kwota zamówienia</div>
+                        <div style="width: 8%; text-align: center; font-weight: bold;">Status</div>
+                    </div>
+                    <tr th:each="o:${orders}">
+                        <th:block th:fragment="orderRow(order)">
+                            <div class="d-flex align-items-center justify-content-between" style="background-color: white; padding: 15px; border: none;">
+                                <div style="width: 7%; text-align: center;">[[${o.orderId}]]</div>
+                                <div style="width: 10%; text-align: center;">[[${o.formattedOrderDate}]]</div>
+                                <div style="width: 10%; text-align: center;">[[${o.userDetails.name}]] [[${o.userDetails.surname}]]
+                                    [[${o.userDetails.street}]] [[${o.userDetails.city}]] [[${o.userDetails.postcode}]] [[${o.userDetails.country}]]</div>
+                                <div style="width: 10%; text-align: center;">[[${o.watch.brand}]]<br>[[${o.watch.model}]]</div>
+                                <div style="width: 5%; text-align: center;">[[${o.quantity}]] szt.</div>
+                                <div style="width: 10%; text-align: center;">[[${o.quantity * o.price + 250}]] PLN</div>
+                                <div style="width: 8%; text-align: center;">[[${o.orderStatus}]]</div>
+
+            </div>
+                        </th:block>
+        </div>
+            </div>
+    </div>
+    </div>
+</section>
+</body>
+</html>

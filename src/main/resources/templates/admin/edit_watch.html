@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="application_style.css">
+</head>
+<body>
+<section>
+    <div class="container p-2 mt-3" style="margin-bottom: 50px;">
+        <div class="row justify-content-center">
+            <div class="col-md-7" style="margin-top: 5vh;">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <p class="fs-4"></p>Edytuj Zegarek</p>
+                        <th:block th:if="${session != null and session.successMessage != null}">
+                            <p class="text-success fw-bold">[[${session.successMessage}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                        </th:block>
+                        <th:block th:if="${session != null and session.errorMessage != null}">
+                            <p class="text-danger fw-bold">[[${session.errorMessage}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                        </th:block>
+                    </div>
+                    <div class="card-body">
+                        <form action="/admin/updateWatch" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" th:value="${watch.id}">
+                            <div class="mb-3">
+                                <label>Model</label>
+                                <input type="text" name="model" th:value="${watch.model}" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Marka</label>
+                                <select class="form-control" name="brand">
+                                    <option>[[${watch.brand}]]</option>
+                                    <option th:each="b:${brands}">[[${b.name}]]</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label>Stan Techniczny</label>
+                                <textarea type="text" class="form-control" name="condition" th:value="${watch.condition}" ></textarea>
+                            </div>
+
+                            <div class="mb-3" >
+                                <label>Opis</label>
+                                <textarea rows="3" cols="" class="form-control" name="description">
+                                    [[${watch.description}]]</textarea>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label>Cena</label>
+                                <input type="number" step="0.01" name="price" th:value="${watch.price}" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" th:checked="${watch.isActive==true}"
+                                           value="true" name="isActive"
+                                           id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Dostępna
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="isActive"
+                                           th:checked="${watch.isActive==false}" value="
+"
+                                           id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Niedostępna
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="mb-3 col">
+                                    <label>Dostępność</label>
+                                    <input type="number" name="stock" th:value="${watch.stock}" class="form-control">
+                                </div>
+
+                                <div class="mb-3 col">
+                                    <label>Dodaj Zdjęcia</label>
+                                    <input type="file" name="file" class="form-control">
+                                </div>
+                                <div class="mt-1" style="display: flex; justify-content: center; align-items: center;">
+                                    <img th:src="@{'/img/watches_img/'+${watch.image}}" width="100px" height="100px"
+                                         style="margin-bottom: 20px;">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-dark text-white col-md-12">Edytuj</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

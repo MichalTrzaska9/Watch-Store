@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="application_style.css">
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <div class="row p-5">
+            <div class="col-md-4 mt-4">
+                <a href="/admin/loadAddWatch" class="text-decoration-none">
+                <div class="card card-sh">
+                    <div class="card-body text-center" style="color: #006400;">
+                        <i class="fa-solid fa-square-plus fa-2x"></i>
+                        <h4>Dodaj Zegarek</h4>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-4 mt-4">
+                <a href="/admin/brand" class="text-decoration-none">
+                    <div class="card card-sh">
+                        <div class="card-body text-center" style="color: #006400;">
+                            <i class="fa-solid fa-square-plus fa-2x"></i>
+                            <h4>Dodaj Markę</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mt-4">
+                <a href="/admin/addAdminAccount" class="text-decoration-none">
+                    <div class="card card-sh">
+                        <div class="card-body text-center" style="color: #006400;">
+                            <i class="fa-solid fa-square-plus fa-2x"></i>
+                            <h4>Dodaj Administratora</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mt-4">
+                <a href="/admin/users?role=1" class="text-decoration-none">
+                    <div class="card card-sh">
+                        <div class="card-body text-center" style="color: #006400;">
+                            <i class="fa-solid fa-users fa-2x"></i>
+                            <h4>Administratorzy</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mt-4">
+                <a href="/admin/watches" class="text-decoration-none">
+                    <div class="card card-sh">
+                        <div class="card-body text-center" style="color: #006400;">
+                            <i class="fa-solid fa-list fa-2x"></i>
+                            <h4> Lista Zegarków</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mt-4">
+                <a href="/admin/users?role=2" class="text-decoration-none">
+                    <div class="card card-sh">
+                        <div class="card-body text-center" style="color: #006400;">
+                            <i class="fa-solid fa-users fa-2x"></i>
+                            <h4>Klienci</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 mt-4 mx-auto">
+                <a href="/admin/order_list" class="text-decoration-none">
+                    <div class="card card-sh">
+                        <div class="card-body text-center" style="color: #006400;">
+                            <i class="fa-solid fa-box fa-2x"></i>
+                            <h4>Zamówienia</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

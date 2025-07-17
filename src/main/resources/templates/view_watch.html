@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Watch Details</title>
+    <link rel="stylesheet" href="/css/application_style.css">
+</head>
+<body>
+<section>
+    <div class="container">
+
+        <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+            <div class="row w-100" style="position: relative;">
+                <th:block th:if="${session != null and session.successMessage != null}">
+                    <p class="text-success alert alert-success text-center" role="alert">[[${session.successMessage}]]</p>
+                    <th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+                </th:block>
+
+                <th:block th:if="${session != null and session.errorMessage != null}">
+                    <p class="text-danger fw-bold alert alert-danger text-center" role="alert">[[${session.errorMessage}]]</p>
+                    <th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+                </th:block>
+
+                <div class="col-6 d-flex align-items-center justify-content-center">
+                    <img alt="Zdjęcie zegarka" th:src="@{'/img/watches_img/' + ${watch.image}}"
+                         style="width: 90%; height: auto; margin-left: -35%;">
+                </div>
+
+                <div class="col-md-6">
+                    <p class="fs-3 text-center d-inline" style="text-transform: uppercase;">
+                        [[${watch.brand}]]</p>
+                    <p class="fs-3">[[${watch.model}]]</p>
+                    <p>
+                        <span class="fw-bold">Opis : </span><br>[[${watch.description}]]
+                    </p>
+                    <p>
+                    <span class="fw-bold">Szczegóły: </span><br>
+                    Status:
+                    <th:block th:if="${watch.stock > 0}">
+                        <span class="badge bg-success">Dostępny</span>
+                        <br>Ilość: <span th:text="${watch.stock}">[[${watch.stock}]]</span> szt.
+                    </th:block>
+
+                    <th:block th:unless="${watch.stock > 0}">
+                        <span class="badge bg-warning">Niedostępny</span>
+                    </th:block>
+
+                    <br>Stan: [[${watch.condition}]]<br>
+                    Zasady zwrotu: 14 dni na wymianę lub zwrot
+                    </p>
+                    <p class="fs-5 fw-bold">
+                        Cena : [[${watch.price}]] zł
+                    </p>
+
+                    <div class="row">
+                        <div class="col-md-4 text-center p-2">
+                            <i class="fas fa-money-bill-wave fa-2x" style="color: gray;"></i>
+                            <p style="color: gray;">Płatność przy odbiorze</p>
+                        </div>
+                        <div class="col-md-4 text-center p-2">
+                            <i class="fas fa-undo-alt fa-2x" style="color: gray;"></i>
+                            <p style="color: gray;">Możliwość zwrotu</p>
+                        </div>
+                        <div class="col-md-4 text-center p-2">
+                            <i class="fas fa-truck-moving fa-2x" style="color: gray;"></i>
+                            <p style="color: gray;">Darmowa dostawa</p>
+                        </div>
+                    </div>
+
+                    <th:block th:if="${watch.stock > 0}">
+                        <th:block th:if="${user == null}">
+                            <a href="/login" class="add-to-cart-btn">Dodaj do koszyka</a>
+                        </th:block>
+
+                        <th:block th:unless="${user == null}">
+                            <th:block th:if="${cart != null}">
+                                <a th:href="@{/user/removeFromCart(wid=${watch.id}, uid=${user.id})}" class="btn btn-danger">Usuń z koszyka</a>
+                            </th:block>
+
+                            <th:block th:unless="${cart != null}">
+                                <a th:href="@{/user/addCart(wid=${watch.id}, uid=${user.id})}" class="add-to-cart-btn">Dodaj do koszyka</a>
+                            </th:block>
+                        </th:block>
+                    </th:block>
+
+                    <th:block th:unless="${watch.stock > 0}">
+                        <a href="#" class="btn text-white btn-warning col-md-12">Niedostępny</a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

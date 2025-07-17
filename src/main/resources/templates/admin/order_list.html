@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista zamówień</title>
+    <link rel="stylesheet" href="/css/application_style.css">
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <div class="card-header text-center">
+            <p class="fs-4">Lista zamówień</p>
+
+            <th:block th:if="${session != null and session.successMessage != null}">
+                <p class="text-success fw-bold">[[${session.successMessage}]]</p>
+                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+            <th:block th:if="${session != null and session.errorMessage != null}">
+                <p class="text-danger fw-bold">[[${session.errorMessage}]]</p>
+                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+
+            <th:block th:if="${errorMessage != null}">
+                <p class="text-danger fw-bold">[[${errorMessage}]]</p>
+            </th:block>
+
+            <div class="col-md-12 p-3">
+                <form action="/admin/search_order" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="orderId" placeholder="Wprowadź kod zamówienia" style="border: 2px solid #808080;">
+                        <button class="btn btn-light text-dark ms-1 col-md-2" style="border: 2px solid #808080;">
+                            <i class="fa-solid fa-magnifying-glass me-1"></i>Szukaj
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex align-items-center justify-content-between" style="background-color: white; padding: 15px; border: none;">
+                    <div style="width: 7%; text-align: center;">Kod zamówienia</div>
+                    <div style="width: 10%; text-align: center;">Data zamówienia</div>
+                    <div style="width: 10%; text-align: center;">Dane zamawiającego</div>
+                    <div style="width: 10%; text-align: center;">Produkt</div>
+                    <div style="width: 5%; text-align: center;">Ilość</div>
+                    <div style="width: 10%; text-align: center;">Kwota zamówienia</div>
+                    <div style="width: 8%; text-align: center;">Status</div>
+                    <div style="width: 24%; text-align: center;"></div>
+                </div>
+
+                <th:block th:if="${search}">
+                    <th:block th:if="${orderDetails != null}">
+                        <th:block th:replace="::orderRow(${orderDetails})"></th:block>
+                    </th:block>
+                    <th:block th:unless="${orderDetails != null}">
+                        <p class="fs-3 text-center text-danger">Nie znaleziono zamówienia</p>
+                    </th:block>
+                </th:block>
+
+                <th:block th:unless="${search}">
+                    <th:block th:each="o : ${orders}">
+                        <th:block th:replace="::orderRow(${o})"></th:block>
+                    </th:block>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</section>
+
+<th:block th:fragment="orderRow(order)">
+    <div class="d-flex align-items-center justify-content-between" style="background-color: white; padding: 15px; border: none;">
+        <div style="width: 7%; text-align: center;">[[${order.orderId}]]</div>
+        <div style="width: 10%; text-align: center;">[[${order.formattedOrderDate}]]</div>
+        <div style="width: 10%; text-align: center;">[[${order.recipientDetails.name}]] [[${order.recipientDetails.surname}]]
+            [[${order.recipientDetails.street}]] [[${order.recipientDetails.city}]] [[${order.recipientDetails.postcode}]]
+            [[${order.recipientDetails.country}]] tel.:[[${order.recipientDetails.phone}]]</div>
+        <div style="width: 10%; text-align: center;">[[${order.watch.brand}]]<br>[[${order.watch.model}]]</div>
+        <div style="width: 5%; text-align: center;">[[${order.quantity}]] szt.</div>
+        <div style="width: 10%; text-align: center;">[[${order.quantity * order.price +250}]] PLN</div>
+        <div style="width: 8%; text-align: center;">[[${order.orderStatus}]]</div>
+        <div style="width: 24%; text-align: center;">
+            <form action="/admin/updateOrderStatus" method="post">
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" name="orderStatus" id="orderStatus" required style=" width: 110%; ">
+                            <option value="" disabled selected>ustaw status</option>
+                            <option value="1">Zamówienie w realizacji</option>
+                            <option value="2">Zamówienie spakowane</option>
+                            <option value="3">Zamówienie w doręczeniu</option>
+                            <option value="4">Zamówienie dostarczone</option>
+                            <option value="5">Zamówienie anulowane</option>
+                        </select>
+                    </div>
+                    <input th:value="${order.id}" name="id" type="hidden">
+                    <div class="col">
+                        <th:block th:if="${order.orderStatus == 'Zamówienie anulowane' || order.orderStatus == 'Zamówienie dostarczone'}">
+                            <button  class="btn btn-light btn-custom"
+                                     style="padding: 0.25rem 1rem; font-size: 0.875rem; width: 120%; cursor: not-allowed; margin-left: 10px;" disabled>
+                                <i class="fa-solid fa-pencil"></i> Zaktualizuj</button>
+                        </th:block>
+                        <th:block th:unless="${order.orderStatus == 'Zamówienie anulowane' || order.orderStatus == 'Zamówienie dostarczone'}">
+                            <button  class="btn btn-light btn-custom"
+                                     style="padding: 0.25rem 1rem; font-size: 0.875rem; width: 120%;  margin-left: 10px;">
+                                <i class="fa-solid fa-pencil"></i> Zaktualizuj</button>
+                        </th:block>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

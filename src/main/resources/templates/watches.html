@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Watches</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/application_style.css">
+</head>
+<body>
+<section>
+    <div class="container-fluid p-5 mt-5" style="background-color: white;">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 text-center">
+                <img src="img/background/flamingo_logo.png" alt="Flamingo Logo"
+                     style="max-width: 60%; height: auto; margin-top:-15vh; margin-bottom: -5vh;">
+                <form action="/watches" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="x" style="border: 2px solid #808080;">
+                        <button class="btn btn-light text-dark ms-1 col-md-2" style="border: 2px solid #808080;">
+                            <i class="fa-solid fa-magnifying-glass me-1"></i>Szukaj
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-1">
+        <div class="row">
+            <div class="col-md-2 p-0 ps-1">
+                <div class="card shadow-sm p-0 mb-5  rounded">
+                    <div class="card-body">
+                        <div class="list-group ">
+                            <p class="fs-5 text-center">Marki</p>
+                            <a href="/watches" th:classappend="${paramValue==''} ? 'active':''"
+                               class="list-group-item list-group-item-action" aria-current="true">
+                                Wszystkie</a>
+                            <a th:each="b:${brands}" th:href="@{'/watches?brand='+${b.name}}"
+                               th:classappend="${paramValue==b.name} ? 'active':''"
+                               class="list-group-item list-group-item-action">[[${b.name}]]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div>
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-md-4 g-4">
+                            <th:block th:if="${watchesSize > 0}">
+                                <div class="col d-flex align-items-stretch" th:each="w: ${watches}">
+                                    <div class="d-flex flex-column justify-content-between text-center p-3 w-100"
+                                         style="background: none;">
+                                        <img alt="" th:src="@{'/img/watches_img/' + ${w.image}}"
+                                             style="max-height: 150px; height: auto; object-fit: contain; display: block; margin: 0 auto;">
+                                        <div class="flex-grow-1 mt-3">
+                                            <p class="fs-5 text-center d-inline" style="text-transform: uppercase;">
+                                                [[${w.brand}]]</p>
+                                            <p class="fs-5 text-center d-inline">[[${w.model}]]</p>
+                                        </div>
+                                        <div class="mt-auto" style="padding:15px;">
+                                            <p class="fs-5 mb-2">[[${w.price}]] zł</p>
+                                            <a th:href="@{'/watch/' + ${w.id}}" class="btn btn-light btn-custom">Pokaż</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                        <th:block th:unless="${watchesSize > 0}">
+                            <p class="fs-4 mt-4">Marka chwilowo niedostępna</p>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <th:block th:if="${watchesSize > 0}">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item" th:classappend="${firstPage} ? 'disabled' : ''">
+                                        <a class="page-link" th:href="@{'/watches?pageNumber=' + ${pageNumber - 1}}"
+                                           aria-label="Previous" style="color: black;">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="i : ${#numbers.sequence(1, sumPages)}"
+                                        class="page-item"
+                                        th:classappend="${pageNumber + 1 == i} ? 'active' : ''">
+                                        <a class="page-link pagination-btn" th:classappend="${pageNumber + 1 == i} ? ' selected' : ''" th:href="@{'/watches?pageNumber=' + ${i - 1}}">
+                                            [[${i}]]
+                                        </a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${lastPage} ? 'disabled' : ''">
+                                        <a class="page-link" th:href="@{'/watches?pageNumber=' + ${pageNumber + 1}}"
+                                           aria-label="Next" style="color: black;">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

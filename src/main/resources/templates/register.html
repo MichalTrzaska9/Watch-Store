@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<section>
+    <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+        <div class="row w-100" style="height: 90%; position: relative;">
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <img alt="" src="img/background/flamingo_logo.png"
+                     style="width: 60vw; height: auto; margin-top: -10vh;">
+            </div>
+
+
+            <div class="col-6 d-flex justify-content-center align-items-start"
+                 style="min-height: 100vh; overflow: auto;">
+                <div class="card" style="width: 40vw; max-width: 600px; margin-top: 15vh;">
+                    <div class="card-header">
+                        <p class="fs-4 text-center">Rejestracja</p>
+                        <th:block th:if="${session != null and session.successMessage != null}">
+                            <p class="text-success text-center fw-bold">[[${session.successMessage}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+                        </th:block>
+
+                        <th:block th:if="${session != null and session.errorMessage != null}">
+                            <p class="text-danger text-center fw-bold">[[${session.errorMessage}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage}"></th:block>
+                        </th:block>
+                    </div>
+                    <div class="card-body">
+                        <form action="/saveUser" enctype="multipart/form-data"
+                              method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-label">Imię</label>
+                                    <input required class="form-control" name="name" type="text">
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Nazwisko</label>
+                                    <input required class="form-control" name="surname" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="form-label">Email</label>
+                                    <input required class="form-control" name="email" type="email">
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Numer Telefonu</label>
+                                    <input required class="form-control" name="phone" type="number">
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="form-label">Ulica</label>
+                                        <input required class="form-control" name="street" type="text">
+                                    </div>
+
+                                    <div class="col">
+                                        <label class="form-label">Miasto</label>
+                                        <input required class="form-control" name="city" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="form-label">Kraj</label>
+                                        <input required class="form-control" name="country" type="text">
+                                    </div>
+
+                                    <div class="col">
+                                        <label class="form-label">Kod Pocztowy</label>
+                                        <input required class="form-control" name="postcode" type="text" pattern="\d{2}-\d{3}" maxlength="6">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="form-label">Hasło</label>
+                                        <input required class="form-control" name="password" type="password">
+                                    </div>
+
+                                    <div class="col">
+                                        <label class="form-label">Powtórz Hasło</label>
+                                        <input required class="form-control" name="cpassword" type="password">
+                                    </div>
+                                </div>
+
+                                <button type="submit"
+                                        class="btn btn-dark text-white col-md-12 mt-3">Zarejestruj się
+                                </button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="/login" class="text-decoration-none text-muted">Zaloguj się</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

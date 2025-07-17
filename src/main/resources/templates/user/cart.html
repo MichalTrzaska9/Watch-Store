@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Koszyk klienta</title>
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <div class="card-header text-center">
+           
+            <th:block th:if="${session != null and session.errorMessage != null}">
+                <p class="text-danger fw-bold">[[${session.errorMessage}]]</p>
+                <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+            </th:block>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex align-items-center justify-content-between"
+                     style="background-color: white; padding: 15px; border: none;">
+                    <div style="width: 10%; text-align: center;">Nr</div>
+                    <div style="width: 20%; text-align: center;"> </div>
+                    <div style="width: 30%; text-align: center;">Produkt</div>
+                    <div style="width: 10%; text-align: center;">Cena</div>
+                    <div style="width: 10%; text-align: center;">Ilość</div>
+                    <div style="width: 20%; text-align: center;"> </div>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between" th:each="cart, c:${carts}"
+                     style="background-color: white; padding: 15px; border: none;">
+                    <div style="width: 10%; text-align: center;">[[${c.count}]]</div>
+                    <div style="width: 20%; text-align: center;">
+                        <img th:src="@{'/img/watches_img/' + ${cart.watch.image}}" width="100px" height="100px">
+                    </div>
+                    <div style="width: 30%; text-align: center;">[[${cart.watch.brand}]] [[${cart.watch.model}]]</div>
+                    <div style="width: 10%; text-align: center;">[[${cart.watch.price}]] zł</div>
+                    <div style="width: 10%; text-align: center;">
+                        <a th:href="@{'/user/cartQuantityUpdate?operation=de&cartId=' + ${cart.id}}" class="btn btn-light btn-sm">
+                            <i class="fa-solid fa-minus"></i>
+                        </a>
+                        [[${cart.quantity}]]
+                        <a th:href="@{'/user/cartQuantityUpdate?operation=in&cartId=' + ${cart.id}}" class="btn btn-light btn-sm">
+                            <i class="fa-solid fa-plus"></i>
+                        </a>
+                    </div>
+                    <div style="width: 20%; text-align: center;">
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4 text-end">
+                        <p class="fw-bold">Kwota do zapłaty: [[${totalOrderAmount}]] zł</p>
+                    </div>
+                </div>
+
+                <div class="text-end mt-3">
+                    <a href="/user/orders" class="btn btn-light btn-custom"
+                       style="padding: 0.25rem 1rem; font-size: 0.875rem; width: 100px;"> Zamów </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

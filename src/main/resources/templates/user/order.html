@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<section>
+    <div class="container mt-5 p-5">
+        <form action="/user/save-order" method="post">
+            <div class="row" style="display: flex; flex-wrap: wrap;">
+                <div class="col-md-6 p-5" style="display: flex; flex-direction: column;">
+                    <p class="fs-2 text-center">Dane dostawy</p>
+                    <div class="mb-3 row">
+                        <input type="text" name="name" placeholder="Imię"
+                               required class="form-control col">
+                        <input type="text" name="surname" placeholder="Nazwisko"
+                               required class="form-control col ms-2">
+                    </div>
+
+                    <div class="mb-3 row">
+                        <input type="email" name="email" placeholder="Email"
+                               required class="form-control col">
+                        <input type="text" name="phone" placeholder="Telefon"
+                               required class="form-control col ms-2">
+                    </div>
+
+                    <div class="mb-3 row">
+                        <input type="text" name="street" placeholder="Ulica"
+                               required class="form-control col">
+                        <input type="text" name="city" placeholder="Miejscowość"
+                               required class="form-control col ms-2">
+                    </div>
+
+                    <div class="mb-3 row">
+                        <input type="text" name="country" placeholder="Kraj"
+                               required class="form-control col">
+                        <input type="text" name="postcode" placeholder="Kod pocztowy"
+                               required class="form-control col ms-2" pattern="\d{2}-\d{3}" maxlength="6">
+                    </div>
+                </div>
+                <div class="col-md-6 p-5" style="display: flex; flex-direction: column;">
+                    <p class="text-center fs-2">Metoda Płatności</p>
+                    <div class="card" style="flex: 1;">
+                        <div class="card-body">
+                            <table class="table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <td>Koszt zamówienia</td>
+                                    <td></td>
+                                    <td>[[${orderPrice}]] PLN</td>
+                                </tr>
+                                <tr>
+                                    <td>Koszt przesyłki</td>
+                                    <td></td>
+                                    <td>250 PLN</td>
+                                </tr>
+                                <tr>
+                                    <td>Kwota do zapłaty</td>
+                                    <td></td>
+                                    <td style="font-weight: bold;" >[[${orderAmount + 250}]] PLN</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="mb-3">
+                                <select required name="paymentMethod"
+                                        class="form-control">
+                                    <option disabled selected> wybierz metodę płatności </option>
+                                    <option value="POBRANIE">Płatność za pobraniem</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-dark col-md-12 mb-2">Zamów</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

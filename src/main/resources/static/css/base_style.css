@@ -1,0 +1,10 @@
+     .bg-purple {
+            background-color: #000000 !important; /* Czarny kolor */
+        }
+    .navbar-nav .nav-item .nav-link:hover {
+        color: #888888 !important; /* Ciemniejszy odcień dla tekstu */
+    }
+
+    .dropdown-item:hover {
+        color: #888888 !important; /* Ciemniejszy odcień dla tekstu */
+    }
