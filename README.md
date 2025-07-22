@@ -39,6 +39,6 @@ To verify the application's correctness, both unit tests and integration tests a
 
 ## Author
 Michał Trzaska
-`michaltrzaska9@gmail.com`
+`michaltrzaska18@gmail.com`
 
 
