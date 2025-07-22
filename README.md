@@ -7,7 +7,7 @@ Watch Store is a web application developed in Java using Spring Boot, which allo
 - Java 17
 - Spring Boot
 - Spring Security
-- PostgreSQL (production), H2 (test)
+- PostgreSQL (production), H2 (tests)
 - Hibernate, JPA
 - Thymeleaf, HTML, CSS
 - Gradle
