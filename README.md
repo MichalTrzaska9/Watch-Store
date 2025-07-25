@@ -17,9 +17,9 @@ Watch Store is a web application developed in Java using Spring Boot, which allo
 
 ## System Features
 The online store project defines three types of users:
-- Administrator - has access to the admin panel, from which they manage user accounts, the watch catalog, available brands and orders.
-- Customer - manages their own account, can change their password and personal information, add products to the cart and places orders.
-- Unregistered User - can browse the catalog and has the ability to log in and register in the system. 
+- **Administrator** - has access to the admin panel, from which they manage user accounts, the watch catalog, available brands and orders.
+- **Customer** - manages their own account, can change their password and personal information, add products to the cart and places orders.
+- **Unregistered User** - can browse the catalog and has the ability to log in and register in the system. 
 
 ## Setup and Run
 - Clone the repository: `git clone https://github.com/MichalTrzaska9/Watch-Store.git`
