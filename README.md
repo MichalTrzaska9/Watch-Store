@@ -1,5 +1,7 @@
 # Watch Store 
-Watch Store is a web application developed in Java using Spring Boot, which allows browsing and purchasing watches online. Additionally, the application offers an administrator panel for managing the store. It follows the MVC architectural pattern to separate concerns between business logic, user interface and data access. This project was created for educational purposes as part of self-directed learning in software development. At the same time, it was designed with potential future business use in mind, making it a solid foundation for possible commercial expansion. 
+Watch Store is a web application developed in Java using Spring Boot, which allows browsing and purchasing watches online. Additionally, the application offers an administrator panel for managing the store. It follows the MVC architectural pattern to separate concerns between business logic, user interface and data access. 
+
+This project was created for educational purposes as part of self-directed learning in software development. At the same time, it was designed with potential future business use in mind, making it a solid foundation for possible commercial expansion. 
 
 ![Gif](https://github.com/MichalTrzaska9/Watch-Store/blob/d90aaf995f035dc6c57c0711607d72ea308e26b3/Watch_Store.gif)
 
